@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            max-width: 400px;
+            margin: auto;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Currency Converter</h1>
+    <input type="number" id="amount" placeholder="Enter amount" />
+    <select id="from">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="INR">INR</option>
+    </select>
+    <select id="to">
+        <option value="INR">INR</option>
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+    </select>
+    <button onclick="convert()">Convert</button>
+    <div id="result"></div>
+
+    <script>
+        const rates = {
+            USD: { USD: 1, EUR: 0.85, INR: 83.3 },
+            EUR: { EUR: 1, USD: 1.18, INR: 98.0 },
+            INR: { INR: 1, USD: 0.012, EUR: 0.0102 }
+        };
+
+        function convert() {
+            const amount = parseFloat(document.getElementById("amount").value);
+            const from = document.getElementById("from").value;
+            const to = document.getElementById("to").value;
+
+            if (isNaN(amount)) {
+                document.getElementById("result").textContent = "Please enter a valid amount.";
+                return;
+            }
+
+            const rate = rates[from][to];
+            const converted = (amount * rate).toFixed(2);
+            document.getElementById("result").textContent = `${amount} ${from} = ${converted} ${to}`;
+        }
+    </script>
+</body>
+</html>
+
